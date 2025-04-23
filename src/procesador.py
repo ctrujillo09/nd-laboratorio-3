@@ -15,12 +15,15 @@ class Analizador:
         with open(self.archivo_csv, mode='r', encoding='ISO-8859-1') as file:
             lector = csv.DictReader(file)
             for fila in lector:
-                datos.append(fila)
+                # Ignoramos las filas donde la provincia es "ND"
+                if fila['PROVINCIA'] != "ND":
+                    datos.append(fila)
         return datos
 
     def ventas_totales_por_provincia(self):
         """
-        Retorna un diccionario con el total de ventas agrupado por PROVINCIA.
+        Retorna un diccionario con el total de ventas agrupado por PROVINCIA,
+        ignorando aquellas filas donde la provincia es "ND".
         """
         ventas_por_provincia = {}
         
@@ -37,7 +40,8 @@ class Analizador:
 
     def ventas_por_provincia(self, nombre):
         """
-        Retorna el total de ventas de una provincia determinada.
+        Retorna el total de ventas de una provincia determinada,
+        ignorando aquellas filas donde la provincia es "ND".
         """
         ventas_totales = 0
         for fila in self.datos:
