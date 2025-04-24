@@ -1,5 +1,12 @@
 import csv
 
+class ProvinciaNoEncontrada(Exception):
+    """Excepción personalizada cuando no se encuentra la provincia solicitada."""
+    def __init__(self, provincia):
+        self.provincia = provincia
+        self.mensaje = f"Provincia '{provincia}' no encontrada en los datos."
+        super().__init__(self.mensaje)
+
 class Analizador:
     def __init__(self, archivo_csv):
         self.archivo_csv = archivo_csv
@@ -39,14 +46,10 @@ class Analizador:
         return ventas_por_provincia
 
     def ventas_por_provincia(self, nombre):
-        """
-        Retorna el total de ventas de una provincia determinada,
-        ignorando aquellas filas donde la provincia es "ND".
-        """
-        ventas_totales = 0
-        for fila in self.datos:
-            if fila['PROVINCIA'] == nombre:
-                ventas_totales += float(fila['TOTAL_VENTAS'])
-        
-        return ventas_totales
+        """Retorna el total de ventas de una provincia determinada"""
+        ventas_por_provincia = self.ventas_totales_por_provincia()
+        nombre_normalizado = nombre.strip().upper()  # Convertir nombre a mayusculas
 
+        if nombre_normalizado not in ventas_por_provincia:
+            raise KeyError(f"La provincia '{nombre}' no se encuentra en los datos.")
+        return ventas_por_provincia[nombre_normalizado]

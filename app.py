@@ -13,8 +13,11 @@ def main():
     # Obtener ventas de una provincia específica
     print("\nCompras para una provincia")
     provincia = input("\tIngrese el nombre de una provincia: ")
-    ventas = analizador.ventas_por_provincia(provincia)
-    print(f"\tVentas de {provincia}: ${ventas:,.2f}")
+    try:
+        ventas = analizador.ventas_por_provincia(provincia)
+        print(f"\tVentas de {provincia}: ${ventas:,.2f}")
+    except KeyError as e:
+        print(e)
 
 if __name__ == "__main__":
     main()
