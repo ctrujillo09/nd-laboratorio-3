@@ -53,3 +53,36 @@ class Analizador:
         if nombre_normalizado not in ventas_por_provincia:
             raise KeyError(f"La provincia '{nombre}' no se encuentra en los datos.")
         return ventas_por_provincia[nombre_normalizado]
+ 
+ 
+    def exportaciones_totales_por_mes(self):
+        """Retorna un diccionario con el total de exportaciones agrupadas por mes."""
+        exportaciones_por_mes = {}
+        for fila in self.datos:
+            mes = fila['MES']
+            exportaciones = float(fila['EXPORTACIONES']) if fila['EXPORTACIONES'] else 0.0
+            if mes in exportaciones_por_mes:
+                exportaciones_por_mes[mes] += exportaciones
+            else:
+                exportaciones_por_mes[mes] = exportaciones
+        return exportaciones_por_mes
+
+    def provincia_con_mayor_importacion(self):
+        """Retorna la provincia con el mayor volumen de importaciones."""
+        importaciones_por_provincia = {}
+        for fila in self.datos:
+            provincia = fila['PROVINCIA']
+            if provincia == "ND":
+                continue
+            importaciones = float(fila['IMPORTACIONES']) if fila['IMPORTACIONES'] else 0.0
+            if provincia in importaciones_por_provincia:
+                importaciones_por_provincia[provincia] += importaciones
+            else:
+                importaciones_por_provincia[provincia] = importaciones
+
+        if not importaciones_por_provincia:
+            raise ValueError("No hay datos de importaciones disponibles.")
+
+        # Buscar la provincia con la mayor importación
+        provincia_max = max(importaciones_por_provincia, key=importaciones_por_provincia.get)
+        return provincia_max, importaciones_por_provincia[provincia_max]

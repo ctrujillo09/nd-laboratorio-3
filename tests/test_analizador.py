@@ -32,6 +32,16 @@ class TestAnalizador(unittest.TestCase):
             resultado_minusculas = self.analizador.ventas_por_provincia("pichincha")
             self.assertEqual(resultado_mayusculas, resultado_minusculas)
     
+    def test_exportaciones_totales_por_mes(self):
+        exportaciones = self.analizador.exportaciones_totales_por_mes()
+        self.assertIsInstance(exportaciones, dict)
+        self.assertTrue(all(float(v) >= 0 for v in exportaciones.values()))
+
+    def test_provincia_con_mayor_importacion(self):
+        provincia, valor = self.analizador.provincia_con_mayor_importacion()
+        self.assertIsInstance(provincia, str)
+        self.assertIsInstance(valor, float)
+        self.assertTrue(valor > 0)
     #def test_ventas_por_provincia_3(self):
     
          
