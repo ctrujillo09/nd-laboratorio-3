@@ -35,6 +35,8 @@ def main():
     porcentajes = analizador.porcentaje_tarifa_cero_por_provincia()
     for provincia, porcentaje in porcentajes.items():
         print(f"\t{provincia}: {porcentaje:.2f}%")
+    
+
 
 if __name__ == "__main__":
     main()

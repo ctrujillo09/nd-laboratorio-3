@@ -87,7 +87,7 @@ class Analizador:
         provincia_max = max(importaciones_por_provincia, key=importaciones_por_provincia.get)
         return provincia_max, importaciones_por_provincia[provincia_max]
 
-        def porcentaje_tarifa_cero_por_provincia(self):
+    def porcentaje_tarifa_cero_por_provincia(self):
         """
         Retorna un diccionario con el promedio de porcentaje de ventas con tarifa 0%
         respecto al total de ventas por provincia.
@@ -122,3 +122,21 @@ class Analizador:
         }
 
         return promedio_por_provincia
+    
+    def diferencia_ventas_exportaciones(self):
+        """Calcula la diferencia entre ventas totales y exportaciones por provincia"""
+        diferencias = {}
+        for fila in self.datos:
+            provincia = fila['PROVINCIA']
+            if provincia == "ND":
+                continue
+            try:
+                ventas = float(fila['TOTAL_VENTAS'])
+                exportaciones = float(fila['EXPORTACIONES'])
+                if provincia in diferencias:
+                    diferencias[provincia] += (ventas - exportaciones)
+                else:
+                    diferencias[provincia] = ventas - exportaciones
+            except (ValueError, KeyError):
+                continue
+        return diferencias
