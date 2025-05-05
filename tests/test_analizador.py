@@ -47,7 +47,15 @@ class TestAnalizador(unittest.TestCase):
         porcentajes = self.analizador.porcentaje_tarifa_cero_por_provincia()
         self.assertIsInstance(porcentajes, dict)
         self.assertTrue(all(0 <= v <= 100 for v in porcentajes.values()))
+        
+    def test_diferencia_ventas_exportaciones_formato(self):
+        """Verifica que la función retorne un diccionario con diferencias válidas"""
+        diferencias = self.analizador.diferencia_ventas_exportaciones()
+        self.assertIsInstance(diferencias, dict)
 
-    
+        for provincia, valor in diferencias.items():
+            self.assertIsInstance(provincia, str)
+            self.assertIsInstance(valor, float)
+        
     
          
