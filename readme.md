@@ -8,4 +8,4 @@ Este proyecto analiza datos de ventas, exportaciones e importaciones del SRI par
 - Identificar la provincia con mayor volumen de importaciones
 
 ## Cobertura del código
-Según los resultados obtenidos con la linrería de coverage, se tiene una cobertura del código del 98%, lo que permite saber que el código ha sido probado con pruebas unitarias en su mayoría.
+Según los resultados obtenidos con la linrería de coverage, se tiene una cobertura del código del 91%, lo que permite saber que el código ha sido probado con pruebas unitarias en su mayoría.

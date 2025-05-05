@@ -42,6 +42,12 @@ class TestAnalizador(unittest.TestCase):
         self.assertIsInstance(provincia, str)
         self.assertIsInstance(valor, float)
         self.assertTrue(valor > 0)
-    #def test_ventas_por_provincia_3(self):
+    
+    def test_porcentaje_tarifa_cero_por_provincia(self):
+        porcentajes = self.analizador.porcentaje_tarifa_cero_por_provincia()
+        self.assertIsInstance(porcentajes, dict)
+        self.assertTrue(all(0 <= v <= 100 for v in porcentajes.values()))
+
+    
     
          
